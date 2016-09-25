@@ -1,0 +1,47 @@
+
+<ion-view view-title="Cursos" >
+  
+
+  <ion-content class="padding">
+    
+<div class="list">
+
+  <label class="item item-input item-select">
+    <div>
+    Cursos
+    </div>
+    <select ng-options="item as item.nome + ' - ' + item.id for item in cursos " ng-model="selected" ng-change="getHorarios(selected)"> 
+      <option value="">Selecione um Curso</option>
+    </select>
+
+  </label>
+  <label class="item item-input item-select">
+    <div>
+    Semestres
+    </div>
+    <select ng-options="item for item in test " ng-model="a"> 
+      <option value="">Selecione um Semestre</option>
+    </select>
+    
+  </label>
+  <div class="list card" ng-repeat="horario in horarios | filter:{Semestre:a}">
+      <div class="item">
+        <h2>{{horario.Disciplina}}</h2>
+        <p>{{horario.Professor}}</p>
+        <h4>{{horario.Turma}}</h4>
+        <h5>{{horario.faixaHoraria}}</h5>
+        <h6>{{horario.sala}}</h6>
+        <h7>{{horario.DiaSemana}}</h7>
+      </div>
+    </div>
+</div>
+<!--
+    <ion-list>
+      <ion-item ng-repeat="item in cursos | orderBy:'nome'" class="item-text-wrap">
+        <h2>{{item.nome}}</h2>
+        <p>{{item.id}}</p>
+      </ion-item>
+    </ion-list>-->
+
+  </ion-content>
+</ion-view>

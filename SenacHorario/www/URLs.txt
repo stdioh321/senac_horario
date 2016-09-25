@@ -1,0 +1,5 @@
+http://sistemasparainternet.azurewebsites.net/horarios/2.0/getCursos.php
+http://sistemasparainternet.azurewebsites.net/horarios/2.0/getSalas.php
+http://sistemasparainternet.azurewebsites.net/horarios/2.0/getMensagens.php
+http://sistemasparainternet.azurewebsites.net/horarios/2.0/getSalas.php
+http://sistemasparainternet.azurewebsites.net/horarios/2.0/getHorarios.php
