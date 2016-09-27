@@ -1,84 +1,86 @@
-urlCors = "https://crossorigin.me/";
 
 angular.module('starter.controllers', [])
 
-  .controller('CursosCtrl', function ($scope, $http) {
-    $scope.test = [];
-    
-    
-    $scope.getCursos = function () {
-      $http({
-        method: "GET",
-        url: urlCors + "http://sistemasparainternet.azurewebsites.net/horarios/2.0/getCursos.php",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(function (data, status) {
-        $scope.cursos = data.data.cursos;
-        // console.log($scope.cursos);
-      }, function (data, status) {
+  .controller('CursosCtrl', function ($scope, $http, $ionicLoading, CursosServ) {
+    $scope.cursos;
+    $scope.horarios;
+    $scope.semestres = [];
+    $scope.diasSemana = [
+      { name: "Segunda", id: 1, horarios: [] },
+      { name: "Terça", id: 2, horarios: [] },
+      { name: "Quarta", id: 3, horarios: [] },
+      { name: "Quinta", id: 4, horarios: [] },
+      { name: "Sexta", id: 5, horarios: [] },
+      { name: "Sábado", id: 6, horarios: [] },
+      { name: "Domingo", id: 7, horarios: [] }
+    ];
 
+
+
+    $ionicLoading.show({
+      template: 'Carregando Cursos...'
+    });
+    CursosServ.getCursos().then(function (data) {
+      $scope.cursos = data.data;
+      $ionicLoading.hide();
+    }, function (data) {
+      $ionicLoading.hide();
+      console.log("ERROR: ", data);
+    });
+    
+    
+    $scope.mudaDia = function (item) {
+      $scope.diasSemana.forEach(function (el2) {
+        el2.horarios = [];
       });
-    };
+      if (!item) return;
 
-    $scope.getHorarios = function (curso) {
-      // console.log(curso.id);
-      var tmpUrl = urlCors+"http://sistemasparainternet.azurewebsites.net/horarios/2.0/getHorarios.php?id="+curso.id;
-      // console.log(tmpUrl);
-      $http({
-        method: "GET",
-        url:tmpUrl,
-        headers:{
-          "Content-Type":"application/json"
-        }
-      }).then(function(data, status){
-        console.log(data.data);
-        $scope.test = [];
-        $scope.test2 = [];
-        var tmpSem = "";
-        
-        data.data.horarios.forEach(function(el){
-          if(tmpSem == "" || tmpSem != el.Semestre){
-            tmpSem = el.Semestre;
-            $scope.test.push(tmpSem);
+
+      $scope.horarios.forEach(function (el1) {
+
+        $scope.diasSemana.forEach(function (el2) {
+          if (item.Semestre == el1.Semestre && el1.DiaSemana == el2.id) {
+            el2.horarios.push(el1);
           }
-        
         });
-        console.log($scope.test);
-        $scope.horarios = data.data.horarios;
-        
-      }, function(data, status){
+
 
       });
+      console.log($scope.diasSemana);
+
     };
-    $scope.getCursos();
+    $scope.filterSemestre = function (item) {
+      $scope.filterSemestre = item;
+    }
+    $scope.carregaHorarios = function (curso) {
+      $scope.horarios = [];
+      $ionicLoading.show({
+      template: 'Carregando Horarios...'
+    });
+      CursosServ.getHorarios(curso.id).then(function (data) {
 
+        $scope.horarios = data.data.horarios;
+        console.log(data);
+        var tmpIndexSem = 0;
+        $scope.semestres = [];
+        data.data.horarios.forEach(function (el) {
 
-  })
+          var hasIn = $scope.semestres.some(function (el2) {
+            if (el.Semestre == el2.Semestre) return true;
+          });
 
-  .controller('DashCtrl', function ($scope) { })
+          if (!hasIn) {
+            $scope.semestres.push(el);
+            // console.log("OK");
+          }
 
-  .controller('ChatsCtrl', function ($scope, Chats) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
-
-    $scope.chats = Chats.all();
-    $scope.remove = function (chat) {
-      Chats.remove(chat);
-    };
-  })
-
-  .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
-  })
-
-  .controller('AccountCtrl', function ($scope) {
-    $scope.settings = {
-      enableFriends: true
-    };
+        });
+        $ionicLoading.hide();
+        
+        // console.log($scope.semestres);
+      }, function (data) {
+        $ionicLoading.hide();
+        // console.log(data);
+      })
+    }
   });

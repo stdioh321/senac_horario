@@ -1,47 +1,46 @@
+<ion-view view-title="Cursos">
 
-<ion-view view-title="Cursos" >
-  
-
+<!--<ion-header-bar  class="bar-positive">
+    <div class="buttons">
+      <button class="button" ng-click="doSomething()">Left Button</button>
+    </div>
+    <h1 class="title">Title!</h1>
+    <div class="buttons">
+      <button class="ion-navicon-round">Right Button</button>
+    </div>
+  </ion-header-bar>-->
   <ion-content class="padding">
     
-<div class="list">
+    <div class="list">
 
-  <label class="item item-input item-select">
-    <div>
-    Cursos
-    </div>
-    <select ng-options="item as item.nome + ' - ' + item.id for item in cursos " ng-model="selected" ng-change="getHorarios(selected)"> 
-      <option value="">Selecione um Curso</option>
-    </select>
 
-  </label>
-  <label class="item item-input item-select">
-    <div>
-    Semestres
-    </div>
-    <select ng-options="item for item in test " ng-model="a"> 
-      <option value="">Selecione um Semestre</option>
+      <div class="item item-select">
+
+
+        <select class="input input-select" ng-options="item.nome for item in cursos.cursos" ng-model="selCurso" ng-change="carregaHorarios(selCurso)">
+      <option value="">Selecione o Curso</option>
     </select>
-    
-  </label>
-  <div class="list card" ng-repeat="horario in horarios | filter:{Semestre:a}">
-      <div class="item">
-        <h2>{{horario.Disciplina}}</h2>
-        <p>{{horario.Professor}}</p>
-        <h4>{{horario.Turma}}</h4>
-        <h5>{{horario.faixaHoraria}}</h5>
-        <h6>{{horario.sala}}</h6>
-        <h7>{{horario.DiaSemana}}</h7>
+      </div>
+
+    </div>
+    <div class="list">
+      <div class="item item-select">
+        <select ng-options="item.Semestre for item in semestres" ng-model="selSem" ng-change="mudaDia(selSem)">
+      <option value="">Escolha....</option>
+    </select>
       </div>
     </div>
-</div>
-<!--
-    <ion-list>
-      <ion-item ng-repeat="item in cursos | orderBy:'nome'" class="item-text-wrap">
-        <h2>{{item.nome}}</h2>
-        <p>{{item.id}}</p>
-      </ion-item>
-    </ion-list>-->
 
+
+
+    <div class="card" ng-repeat="item in diasSemana" ng-if="item.horarios.length > 0">
+      <div class="item item-divider">{{item.name}}</div>
+      <div class="item item-text-wrap" ng-repeat="item2 in item.horarios">
+            <h3>{{item2.Disciplina}}</h3>
+            <h4>{{item2.faixaHoraria}}</h4>
+            <p>{{item2.Professor}}</p>
+            <h5>Sala: {{item2.sala}}</h5>
+          </div>
+    </div>
   </ion-content>
 </ion-view>
