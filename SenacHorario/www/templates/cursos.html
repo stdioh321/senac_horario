@@ -41,6 +41,10 @@
     </select>
       </label>
 
+
+    <h3>{{userInfo.curso.nome}}</h3>
+    <h4>{{userInfo.semestre.Semestre}}</h4>
+
     <div class="card" ng-repeat="item in diasSemana" ng-if="item.horarios.length > 0">
       <div class="item item-divider">{{item.name}}</div>
       <div class="item item-text-wrap" ng-repeat="item2 in item.horarios">

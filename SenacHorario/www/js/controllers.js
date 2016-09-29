@@ -2,6 +2,7 @@
 angular.module('starter.controllers', [])
 
   .controller('CursosCtrl', function ($scope, $http, $ionicLoading, CursosServ, $ionicPopup, $ionicPopover, $ionicModal) {
+    $scope.userInfo = {};
     $scope.cursos;
     $scope.horarios;
     $scope.semestres = [];
@@ -22,6 +23,19 @@ angular.module('starter.controllers', [])
     }
     $scope.$on("$ionicView.afterEnter", function (event, data) {
       carregaCurso();
+    });
+
+    $scope.$on("$ionicView.loaded", function (event, data) {
+      if (localStorage.diasSemana && localStorage.horarios) {
+        $scope.horarios = JSON.parse(localStorage.horarios);
+        $scope.diasSemana = JSON.parse(localStorage.diasSemana);
+        $scope.flagDiasSemana = true;
+        $scope.userInfo.curso = JSON.parse(localStorage.curso);
+        $scope.userInfo.semestre = JSON.parse(localStorage.semestre);
+        // console.log($scope.diasSemana);
+
+      }
+      // $scope.mudaDia(JSON.parse(localStorage.getItem("curso_dia")));
     });
 
     $ionicModal.fromTemplateUrl('templates/modal-messages.html', {
@@ -66,7 +80,6 @@ angular.module('starter.controllers', [])
       });
       CursosServ.getCursos().then(function (data) {
         $scope.cursos = data.data;
-
         $ionicLoading.hide();
       }, function (data) {
         $ionicLoading.hide();
@@ -77,10 +90,13 @@ angular.module('starter.controllers', [])
 
     $scope.mudaDia = function (item) {
       $scope.flagDiasSemana = false;
+
       $scope.diasSemana.forEach(function (el2) {
         el2.horarios = [];
       });
       if (!item) return;
+      localStorage.semestre = JSON.stringify(item);
+      $scope.userInfo.semestre = item;
       $scope.horarios.forEach(function (el1) {
 
         $scope.diasSemana.forEach(function (el2) {
@@ -92,6 +108,9 @@ angular.module('starter.controllers', [])
 
       });
       $scope.flagDiasSemana = true;
+      localStorage.setItem("horarios", JSON.stringify($scope.horarios));
+      localStorage.setItem("diasSemana", JSON.stringify($scope.diasSemana));
+      
       console.log($scope.diasSemana);
 
     };
@@ -100,10 +119,18 @@ angular.module('starter.controllers', [])
       $scope.filterSemestre = item;
     }
     $scope.carregaHorarios = function (curso) {
+      localStorage.clear();
       $scope.horarios = [];
       $scope.semestres = [];
+      $scope.userInfo = {};
+
+       $scope.diasSemana.forEach(function (el2) {
+        el2.horarios = [];
+      });
       if (!curso) return;
 
+      localStorage.curso = JSON.stringify(curso);
+      $scope.userInfo.curso = curso;
       $ionicLoading.show({
         template: 'Carregando Horarios...'
       });
