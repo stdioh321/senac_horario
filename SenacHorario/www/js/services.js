@@ -12,7 +12,7 @@ angular.module('starter.services', [])
         method: "GET"
       });
     }
-    var _criaJsonHorarios = function(){
+    var _criaJsonHorarios = function( ){
 
     };
     return {

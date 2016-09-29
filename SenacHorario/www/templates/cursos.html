@@ -1,6 +1,6 @@
 <ion-view view-title="Cursos">
 
-<!--<ion-header-bar  class="bar-positive">
+  <!--<ion-header-bar  class="bar-positive">
     <div class="buttons">
       <button class="button" ng-click="doSomething()">Left Button</button>
     </div>
@@ -9,38 +9,45 @@
       <button class="ion-navicon-round">Right Button</button>
     </div>
   </ion-header-bar>-->
+  <ion-header-bar align-title="left" class="bar-positive">
+    <div class="buttons">
+      <!--<button class="button" ng-click="doSomething()">Left Button</button>-->
+    </div>
+    <h1 class="title">Cursos</h1>
+    <div class="buttons" ng-if="flagDiasSemana">
+      <button class="button button-icon icon ion-email" ng-click="openModal()"></button>
+    </div>
+  </ion-header-bar>
   <ion-content class="padding">
-    
-    <div class="list">
 
 
-      <div class="item item-select">
-
-
+    <label class="item item-select item-input">
+        <div class="input-label">
+          Curso
+        </div>
         <select class="input input-select" ng-options="item.nome for item in cursos.cursos" ng-model="selCurso" ng-change="carregaHorarios(selCurso)">
       <option value="">Selecione o Curso</option>
     </select>
-      </div>
+      </label>
 
-    </div>
-    <div class="list">
-      <div class="item item-select">
+
+    <label class="item item-select item-input">
+      <div class="input-label">
+          Horario
+        </div>
         <select ng-options="item.Semestre for item in semestres" ng-model="selSem" ng-change="mudaDia(selSem)">
       <option value="">Escolha....</option>
     </select>
-      </div>
-    </div>
-
-
+      </label>
 
     <div class="card" ng-repeat="item in diasSemana" ng-if="item.horarios.length > 0">
       <div class="item item-divider">{{item.name}}</div>
       <div class="item item-text-wrap" ng-repeat="item2 in item.horarios">
-            <h3>{{item2.Disciplina}}</h3>
-            <h4>{{item2.faixaHoraria}}</h4>
-            <p>{{item2.Professor}}</p>
-            <h5>Sala: {{item2.sala}}</h5>
-          </div>
+        <h3>{{item2.Disciplina}}</h3>
+        <h4>{{item2.faixaHoraria}}</h4>
+        <p>{{item2.Professor}}</p>
+        <h5>Sala: {{item2.sala}}</h5>
+      </div>
     </div>
   </ion-content>
 </ion-view>
