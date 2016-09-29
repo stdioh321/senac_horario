@@ -1,7 +1,7 @@
 
 angular.module('starter.controllers', [])
 
-  .controller('CursosCtrl', function ($scope, $http, $ionicLoading, CursosServ, $ionicPopup, $ionicModal) {
+  .controller('CursosCtrl', function ($scope, $http, $ionicLoading, CursosServ, $ionicPopup, $ionicPopover, $ionicModal) {
     $scope.cursos;
     $scope.horarios;
     $scope.semestres = [];
@@ -49,6 +49,16 @@ angular.module('starter.controllers', [])
     $scope.$on('modal.removed', function () {
       // Execute action
     });
+
+
+    $ionicPopover.fromTemplateUrl('templates/popover-more.html', {
+      scope: $scope
+    }).then(function (popover) {
+      $scope.popover = popover;
+    });
+    $scope.openPopover = function ($event) {
+      $scope.popover.show($event);
+    };
 
     function carregaCurso() {
       $ionicLoading.show({

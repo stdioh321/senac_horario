@@ -9,13 +9,14 @@
       <button class="ion-navicon-round">Right Button</button>
     </div>
   </ion-header-bar>-->
-  <ion-header-bar align-title="left" class="bar-positive">
+  <ion-header-bar align-title="center" class="bar-positive">
     <div class="buttons">
       <!--<button class="button" ng-click="doSomething()">Left Button</button>-->
     </div>
-    <h1 class="title">Cursos</h1>
-    <div class="buttons" ng-if="flagDiasSemana">
-      <button class="button button-icon icon ion-email" ng-click="openModal()"></button>
+    <h1 class="title">Horários</h1>
+    <div class="buttons">
+      <button class="button button-icon icon ion-email" ng-click="openModal()" ng-if="flagDiasSemana"></button>
+      <button class="button button-icon icon ion-more" ng-click="openPopover($event)"></button>
     </div>
   </ion-header-bar>
   <ion-content class="padding">
@@ -33,10 +34,10 @@
 
     <label class="item item-select item-input">
       <div class="input-label">
-          Horario
+          Período
         </div>
         <select ng-options="item.Semestre for item in semestres" ng-model="selSem" ng-change="mudaDia(selSem)">
-      <option value="">Escolha....</option>
+      <option value="">Escolha seu Período...</option>
     </select>
       </label>
 
@@ -45,7 +46,7 @@
       <div class="item item-text-wrap" ng-repeat="item2 in item.horarios">
         <h3>{{item2.Disciplina}}</h3>
         <h4>{{item2.faixaHoraria}}</h4>
-        <p>{{item2.Professor}}</p>
+        <p>Professor(a): {{item2.Professor}}</p>
         <h5>Sala: {{item2.sala}}</h5>
       </div>
     </div>
