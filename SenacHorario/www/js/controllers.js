@@ -38,7 +38,7 @@ angular.module('starter.controllers', [])
     }).then(function (modal) {
       $scope.modal = modal;
     });
-    function carregaMensagens(){
+    function carregaMensagens() {
       $ionicLoading.show({
         template: 'Carregando Mensagens...'
       });
@@ -54,7 +54,7 @@ angular.module('starter.controllers', [])
     $scope.openModal = function () {
       $scope.modal.show();
       carregaMensagens();
-      
+
     };
     $scope.closeModal = function () {
       $scope.modal.hide();
@@ -91,7 +91,7 @@ angular.module('starter.controllers', [])
         $ionicLoading.hide();
       }, function (data) {
         $ionicLoading.hide();
-        if(confirm("Ocorreram problemas para carregar os Cursos, verifique seu acesso a internet, tentar carregar novamente???"))
+        if (confirm("Ocorreram problemas para carregar os Cursos, verifique seu acesso a internet, tentar carregar novamente???"))
           carregaCurso();
         console.log("ERROR: ", data);
       });
@@ -119,7 +119,7 @@ angular.module('starter.controllers', [])
       CursosServ.getHorarios(curso.id).then(function (data) {
 
         $scope.horarios = data.data.horarios;
-        console.log(data);
+        // console.log(data);
         var tmpIndexSem = 0;
 
         data.data.horarios.forEach(function (el) {
@@ -156,6 +156,25 @@ angular.module('starter.controllers', [])
 
 
       });
+      $scope.diasSemana.forEach(function (el1, idx1, arr1) {
+        var tmpDisciplina;
+        var tmpIndex;
+        test = el1.horarios.filter(function (el2, idx2, arr2) {
+          if (tmpDisciplina == el2.Disciplina) {
+            tmpDisciplina = el2.Disciplina;
+            arr2[tmpIndex].faixaHoraria += '/' + el2.faixaHoraria;
+            return false;
+          } else {
+            tmpDisciplina = el2.Disciplina;
+            tmpIndex = idx2;
+            return true;
+          }
+
+        });
+        // console.log(test);
+        el1.horarios = test;
+      });
+
       $scope.userData.semestre = item;
       $scope.userData.flagMessage = true;
       $scope.userData.dias = $scope.diasSemana;

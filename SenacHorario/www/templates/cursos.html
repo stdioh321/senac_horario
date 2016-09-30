@@ -42,8 +42,8 @@
       </label>
 
     <br/>
-    <div ng-if="userData.dias" >
-      <h4>{{userData.curso.nome}}</h4>
+    <div class="text-center" ng-if="userData.dias">
+      <h5>{{userData.curso.nome}}</h5>
       <h5>{{userData.semestre.Semestre}}</h5>
 
     </div>
@@ -51,11 +51,11 @@
     <div class="card" ng-repeat="item in userData.dias">
       <div class="item item-divider">{{item.name}}</div>
       <div class="item item-avatar item-text-wrap" ng-repeat="item2 in item.horarios">
-        
-        <img src="img/user-default.png" alt="{{item2.Professor}}"/>
+
+        <img src="img/user-default.png" alt="{{item2.Professor}}" />
         <h3>{{item2.Disciplina}}</h3>
-        <h4>{{item2.faixaHoraria}}</h4>
-        
+        <h4>{{item2.faixaHoraria | alterFaixaHoraria}}</h4>
+
         <p>Professor(a): {{item2.Professor}}</p>
         <h5>Sala: {{item2.sala}}</h5>
       </div>
