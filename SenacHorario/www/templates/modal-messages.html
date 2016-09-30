@@ -5,12 +5,14 @@
         <button class="button button-icon icon ion-close-circled" ng-click="closeModal()"></button>
     </ion-header-bar>
     <ion-content>
-        <div class="list">
-            <div class="item">Item_</div>
-            <div class="item">Item_</div>
-            <div class="item">Item_</div>
-            <div class="item">Item_</div>
-            <div class="item">Item_</div>
+        <div class="card" ng-repeat="item in userData.mensagens">
+            <div class="item item-divider">
+                {{item.titulo}}
+            </div>
+            <div class="item item-text-wrap">
+                <p class="">{{item.data | dateToTime | date:'dd/MM/yyyy HH:mm'}}</p>
+                <h4>{{item.texto}}</h4>
+            </div>
         </div>
     </ion-content>
 </ion-modal-view>

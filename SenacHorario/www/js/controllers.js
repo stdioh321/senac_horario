@@ -29,7 +29,6 @@ angular.module('starter.controllers', [])
     $scope.$on("$ionicView.loaded", function (event, data) {
       if (localStorage.userData) {
         $scope.userData = JSON.parse(localStorage.userData);
-
       }
     });
 
@@ -39,9 +38,23 @@ angular.module('starter.controllers', [])
     }).then(function (modal) {
       $scope.modal = modal;
     });
-
+    function carregaMensagens(){
+      $ionicLoading.show({
+        template: 'Carregando Mensagens...'
+      });
+      CursosServ.getMensagens($scope.userData.curso.id).then(function (data) {
+        console.log(data.data.mensagens);
+        $scope.userData.mensagens = data.data.mensagens;
+        $ionicLoading.hide();
+      }, function (data) {
+        console.log("ERRO", data);
+        $ionicLoading.hide();
+      });
+    }
     $scope.openModal = function () {
       $scope.modal.show();
+      carregaMensagens();
+      
     };
     $scope.closeModal = function () {
       $scope.modal.hide();
@@ -78,8 +91,8 @@ angular.module('starter.controllers', [])
         $ionicLoading.hide();
       }, function (data) {
         $ionicLoading.hide();
-        alert("Ocorreram problemas para carregar os Cursos, verifique seu acesso a internet.");
-        carregaCurso();
+        if(confirm("Ocorreram problemas para carregar os Cursos, verifique seu acesso a internet, tentar carregar novamente???"))
+          carregaCurso();
         console.log("ERROR: ", data);
       });
     }
