@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
 
     }
     $scope.$on("$ionicView.afterEnter", function (event, data) {
-      carregaCurso();
+      $scope.carregaCurso();
     });
 
     $scope.$on("$ionicView.loaded", function (event, data) {
@@ -38,6 +38,71 @@ angular.module('starter.controllers', [])
     }).then(function (modal) {
       $scope.modal = modal;
     });
+
+    $scope.openModal = function () {
+      $scope.modal.show();
+      carregaMensagens();
+
+    };
+    $scope.closeModal = function () {
+      $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+      $scope.modal.remove();
+    });
+    $ionicModal.fromTemplateUrl('templates/modal-help.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function (modal) {
+      $scope.modal2 = modal;
+    });
+
+    $scope.openModal2 = function () {
+      $scope.modal2.show();
+
+    };
+    $scope.closeModal2 = function () {
+      $scope.modal2.hide();
+    };
+
+    // $scope.$on('$destroy', function () {
+    //   $scope.modal2.remove();
+    // });
+
+
+
+    $ionicPopover.fromTemplateUrl('templates/popover-more.html', {
+      scope: $scope
+    }).then(function (popover) {
+      $scope.popover = popover;
+    });
+    $scope.openPopover = function ($event) {
+      $scope.popover.show($event);
+    };
+
+    $scope.showAlert = function () {
+      var alertPopup = $ionicPopup.alert({
+        title: 'Sobre',
+        template: '<div class="list"> <div class="item"> <h3>Desenvolvedor</h3> <h2>Henrique Lino Dias</h5> <p>diaslino.h@gmail.com</p> <h4>Polygon-Games</h4> </div> </div>'
+      });
+    };
+    $scope.showAlert2 = function () {
+      var alertPopup = $ionicPopup.alert({
+        title: 'Cursos',
+        template: '<div class="list"> <div class="item"> <h3>Desenvolvedor</h3> <h2>Henrique Lino Dias</h5> <p>diaslino.h@gmail.com</p> <h4>Polygon-Games</h4> </div> </div>'
+      });
+    };
+
+    $scope.showConfirm = function () {
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Consume Ice Cream',
+        template: 'Are you sure you want to eat this ice cream?'
+      })
+      return confirmPopup;
+    }
+
+
     function carregaMensagens() {
       $ionicLoading.show({
         template: 'Carregando Mensagens...'
@@ -51,38 +116,7 @@ angular.module('starter.controllers', [])
         $ionicLoading.hide();
       });
     }
-    $scope.openModal = function () {
-      $scope.modal.show();
-      carregaMensagens();
-
-    };
-    $scope.closeModal = function () {
-      $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-      $scope.modal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('modal.hidden', function () {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('modal.removed', function () {
-      // Execute action
-    });
-
-
-    $ionicPopover.fromTemplateUrl('templates/popover-more.html', {
-      scope: $scope
-    }).then(function (popover) {
-      $scope.popover = popover;
-    });
-    $scope.openPopover = function ($event) {
-      $scope.popover.show($event);
-    };
-
-    function carregaCurso() {
+    $scope.carregaCurso = function() {
       $ionicLoading.show({
         template: 'Carregando Cursos...'
       });
@@ -91,8 +125,8 @@ angular.module('starter.controllers', [])
         $ionicLoading.hide();
       }, function (data) {
         $ionicLoading.hide();
-        if (confirm("Ocorreram problemas para carregar os Cursos, verifique seu acesso a internet, tentar carregar novamente???"))
-          carregaCurso();
+        $scope.showAlert2();
+        $scope.userData.flagCursos = true;
         console.log("ERROR: ", data);
       });
     }
@@ -167,6 +201,15 @@ angular.module('starter.controllers', [])
           } else {
             tmpDisciplina = el2.Disciplina;
             tmpIndex = idx2;
+            var tmpProfessor = professores.filter(function(el3){
+              if(el2.Professor == el3.name) return true; 
+            });
+            if(tmpProfessor.length > 0 ) {
+              el2.infoProfessor = tmpProfessor[0];
+            }
+            else{
+              el2.infoProfessor = null;
+            }
             return true;
           }
 

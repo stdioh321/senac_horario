@@ -15,6 +15,7 @@
     </div>
     <h1 class="title">Horários</h1>
     <div class="buttons">
+      <button class="button button-icon icon ion-refresh" ng-click="carregaCurso()" ng-if="userData.flagCursos"></button>
       <button class="button button-icon icon ion-email" ng-click="openModal()" ng-if="userData.flagMessage"></button>
       <button class="button button-icon icon ion-more" ng-click="openPopover($event)"></button>
     </div>
@@ -52,10 +53,11 @@
       <div class="item item-divider">{{item.name}}</div>
       <div class="item item-avatar item-text-wrap" ng-repeat="item2 in item.horarios">
 
-        <img src="img/user-default.png" alt="{{item2.Professor}}" />
+        <img ng-src="{{item2.infoProfessor.photo}}" alt="{{item2.Professor}}" ng-if="item2.infoProfessor"/>
+        <img ng-src="img/user-default.png" alt="{{item2.Professor}}" ng-if="!item2.infoProfessor"/>
         <h3>{{item2.Disciplina}}</h3>
         <h4>{{item2.faixaHoraria | alterFaixaHoraria}}</h4>
-
+        
         <p>Professor(a): {{item2.Professor}}</p>
         <h5>Sala: {{item2.sala}}</h5>
       </div>
