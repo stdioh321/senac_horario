@@ -138,8 +138,8 @@ angular.module('starter.controllers', [])
         $scope.cursos = data.data;
         $scope.userData.flagCursos = false;
         $ionicLoading.hide();
-        
-        
+
+
       }, function (data) {
         $ionicLoading.hide();
         $scope.showAlert2();
@@ -209,54 +209,13 @@ angular.module('starter.controllers', [])
 
       });
 
-      function convertImgToDataURLviaCanvas(url, callback, outputFormat) {
-        var img = new Image();
-        img.crossOrigin = 'Anonymous';
-        img.onload = function () {
-          var canvas = document.createElement('CANVAS');
-          var ctx = canvas.getContext('2d');
-          var dataURL;
-          canvas.height = this.height;
-          canvas.width = this.width;
-          ctx.drawImage(this, 0, 0);
-          dataURL = canvas.toDataURL(outputFormat);
-          callback(dataURL);
-          canvas = null;
-        };
-        img.src = url;
-      }
 
-
-      function convertFileToDataURLviaFileReader(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = function () {
-          var reader = new FileReader();
-          reader.onloadend = function () {
-            callback(reader.result);
-          }
-          reader.readAsDataURL(xhr.response);
-        };
-        xhr.open('GET', url);
-        xhr.send();
-      }
-
-      function ImageToBase64(img, mime_type) {
-        // New Canvas
-        var canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        // Draw Image
-        var ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        // To Base64
-        return canvas.toDataURL(mime_type);
-      }
 
       $scope.diasSemana.forEach(function (el1, idx1, arr1) {
         var tmpDisciplina;
         var tmpIndex;
-        test = el1.horarios.filter(function (el2, idx2, arr2) {
+
+        tmpHorario = el1.horarios.filter(function (el2, idx2, arr2) {
           if (tmpDisciplina == el2.Disciplina) {
             tmpDisciplina = el2.Disciplina;
             arr2[tmpIndex].faixaHoraria += '/' + el2.faixaHoraria;
@@ -268,26 +227,7 @@ angular.module('starter.controllers', [])
               if (el2.Professor == el3.name) return true;
             });
             if (tmpProfessor.length > 0) {
-
-              // var image = new Image();
-              // // //image.src = 'data:image/png;base64,iVBORw0K...';
-              // image.setAttribute('crossOrigin', 'anonymous');
-              // image.src = tmpProfessor[0].photo;
-              // image.onload = function(){
-
-              //   var b64 = ImageToBase64(image, "image/png|gif|jpg");
-              //   console.log(b64);
-
-              //   // console.log(" SUCCESS", image);
-
-              // }
-
-              // function callBack(base64){
-              //   console.log(base64)
-              // }
-              // convertFileToDataURLviaFileReader(tmpProfessor[0].photo, callBack )
-              // convertImgToDataURLviaCanvas(tmpProfessor[0].photo, callBack , 'image/png|gif|jpg')
-
+              // criaBlob(tmpProfessor[0].photo, tmpProfessor[0]);
               el2.infoProfessor = tmpProfessor[0];
             }
             else {
@@ -298,14 +238,22 @@ angular.module('starter.controllers', [])
           }
 
         });
-        // console.log(test);
-        el1.horarios = test;
+        // console.log(tmpHorario);
+        el1.horarios = tmpHorario;
       });
 
+      $scope.diasSemana.forEach(function (el1, idx1, arr1) {
+        var totalHorarios = el1.horarios.length;
+        var cont = 0;
+        el1.horarios.forEach(function (el2, idx2, arr2) {
+          criaBlob(el2.infoProfessor.photo, el2, cont, totalHorarios);
+
+        });
+      });
       $scope.userData.semestre = item;
       $scope.userData.flagMessage = true;
       $scope.userData.dias = $scope.diasSemana;
-      localStorage.userData = JSON.stringify($scope.userData);
+      // localStorage.userData = JSON.stringify($scope.userData);
 
 
     };
@@ -314,4 +262,29 @@ angular.module('starter.controllers', [])
       window.open(encodeURI(url), '_system');
       return false;
     }
+
+    function criaBlob(url, horario, cont, totalHorario) {
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', config.urlCors + url);
+      xhr.responseType = 'blob';
+      xhr.send();
+
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var blob = URL.createObjectURL(this.response);
+          var reader = new FileReader();
+
+          reader.readAsDataURL(this.response);
+          reader.onloadend = function () {
+            horario.infoProfessor.photo = this.result;
+            if (cont == totalHorario - 1)
+              localStorage.userData = JSON.stringify($scope.userData);
+          }
+
+
+        }
+      }
+    }
+
   });

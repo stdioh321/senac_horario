@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="br.polygon4games.senac.cademinhasala" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Cadê minha Sala?</name>
+<widget id="com.ionicframework.senachorario573332" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>SenacHorario</name>
   <description>
-Aplicativo para os alunos do Centro Universitário Senac - Campi Santo Amaro.
-Agora é possível conferir sua grade de horária, local da sala e currículo do professor na palma da mão!
-Além disso, avisos importantes da coordenação serão enviados ao aplicativo como uma notificação.
+        An Ionic Framework and Cordova project.
     </description>
-  <author email="polygon4games@gmail.com" href="http://example.com.com/">
+  <author email="you@example.com" href="http://example.com.com/">
       Your Name Here
     </author>
   <content src="index.html"/>

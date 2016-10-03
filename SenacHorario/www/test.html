@@ -4,42 +4,59 @@
     <title>Test</title>
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="json/config.js"></script>
-    <script>
-        var cursos;
-        var horarios=[];
 
-        $.ajax({
-            url:config.urlCors+config.urlCursos,
-            method:"GET"
-        }).done(function(data,status){
-            console.log(data);
-            cursos = data.cursos;
-            cursos.forEach(function(el,idx,arr){
-                getHorarios(el.id);
-            });
-        }).fail(function(data,status){
-            // console.log("ERROR", data);
-        });
-
-        function getHorarios(id){
-            $.ajax({
-                url:config.urlCors+config.urlHorarios + "?id="+id,
-                method:"GET"
-            }).done(function(data,status){
-                horarios.push(data);
-            }).fail(function(data,status){
-                console.log(id);
-                setTimeout(function(){
-                    // console.log("Again");
-                    getHorarios(id);
-                }, Math.round(Math.random() * 3000));
-            });
-        }
-    </script>
 </head>
 
 <body>
-    <div>Oi</div>
+    <button onclick="criaBlob('img/adam.jpg')">Cria Blob</button>
+    <button onclick="criaBlobLocalStorage()">Cria Blob LocalStorage</button>
+    <div id="result">
+        <img src="" alt="" id="myImg" / >
+    </div>
+    <script>
+        var myResult = document.getElementById("result");
+        var myImage = document.getElementById("myImg");
+        
+
+        
+        function criaBlob(url){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    var blob = URL.createObjectURL(this.response);
+                    
+                    var reader = new FileReader();
+                    reader.readAsDataURL(this.response); 
+                    reader.onloadend = function() {
+                        // console.log(this);
+                        myImage.src = this.result;
+                        // localStorage.blob = this.result;
+                        return this.result
+                    }
+                    
+                    
+                }
+            }
+        }
+
+        function criaBlobLocalStorage(){
+            myImage.src = localStorage.blob;
+        }
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.onreadystatechange = function(){
+        // if (this.readyState == 4 && this.status == 200){
+            
+        // }
+        // xhr.open('GET', 'http://jsfiddle.net/img/logo.png');
+        // xhr.responseType = 'blob';
+        // xhr.send();         
+    </script>
 </body>
+
 
 </html>
