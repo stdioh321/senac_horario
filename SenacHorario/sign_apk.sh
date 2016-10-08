@@ -31,7 +31,7 @@ cordova platform add android
 cordova build android --release
 
 # remove anterior
-rm $KEY_STORE
+# rm $KEY_STORE
 
 # gerar chave
 keytool -v \
