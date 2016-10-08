@@ -12,6 +12,14 @@ angular.module('starter.services', [])
         method: "GET"
       });
     };
+
+    var _getSalas = function (cursoId) {
+      return $http({
+        url: config.urlCors + config.urlSalas + config.paramsConsulta + cursoId,
+        method: "GET"
+      });
+    };
+
     var _criaJsonHorarios = function( ){
 
     };
@@ -24,6 +32,7 @@ angular.module('starter.services', [])
     return {
       getCursos: _getCursos,
       getHorarios: _getHorarios,
-      getMensagens: _getMensagens
+      getMensagens: _getMensagens,
+      getSalas: _getSalas
     };
   });

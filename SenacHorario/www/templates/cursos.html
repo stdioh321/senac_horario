@@ -61,7 +61,12 @@
         <img ng-src="{{item2.infoProfessor.photo}}" alt="{{item2.Professor}}" />
         <!--<img ng-src="img/user-default.png" alt="{{item2.Professor}}" ng-if="!item2.infoProfessor"/>-->
         <h3>{{item2.Disciplina}}</h3>
-        <p>{{item2.faixaHoraria | alterFaixaHoraria}} - Sala: {{item2.sala}}</p>
+        <p>{{item2.faixaHoraria | alterFaixaHoraria}} - Sala: {{item2.infoSala.nome}}
+        <br/>
+        Tipo: {{item2.infoSala.tipo}}
+        <br/>
+        Local: {{item2.infoSala.localizacao}}
+        </p>
         <h4>
           <a class="" ng-click="openInBrowser(item2.infoProfessor.lattes)">
           {{item2.Professor}}

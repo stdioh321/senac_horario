@@ -146,6 +146,22 @@ angular.module('starter.controllers', [])
             $scope.userData.flagCursos = true;
             console.log("ERROR: ", data);
         });
+
+
+        CursosServ.getSalas().then(function(data) {
+            $scope.salas = data.data.salas;
+            $scope.userData.flagSalas = false;
+            $ionicLoading.hide();
+
+            // console.log('getSalas', $scope.salas);
+
+        }, function(data) {
+            $ionicLoading.hide();
+            $scope.showAlert2();
+            $scope.userData.flagSalas = true;
+            console.log("ERROR: ", data);
+        });
+
     }
 
     $scope.filterSemestre = function(item) {
@@ -168,10 +184,11 @@ angular.module('starter.controllers', [])
             template: 'Carregando Horarios...'
         });
         CursosServ.getHorarios(curso.id).then(function(data) {
-
             $scope.horarios = data.data.horarios;
-            // console.log(data);
+            // console.log('getHorarios', data);
             var tmpIndexSem = 0;
+
+            // console.log('salas', $scope.salas)
 
             data.data.horarios.forEach(function(el) {
 
@@ -182,6 +199,19 @@ angular.module('starter.controllers', [])
                 if (!hasIn) {
                     $scope.semestres.push(el);
                 }
+
+                el.infoSala = {
+                     'Nome': el.sala
+                };
+                $scope.salas.some(function(elSala) {
+                    // console.log('sala', elSala);
+                    if(el.sala == elSala.id ) {
+                        el.infoSala = elSala;
+                        return true;
+                    }
+                });
+
+
             });
             $ionicLoading.hide();
 
