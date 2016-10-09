@@ -13,7 +13,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
       // alert("Platform Ready");
       var splash = document.getElementById("custom-overlay");
       setTimeout(function(){
-          splash.style.display = "none";
+          splash.className = "splash-out";
       }, 5000);
 
 
