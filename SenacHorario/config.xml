@@ -19,6 +19,7 @@ Além disso, avisos importantes da coordenação serão enviados ao aplicativo c
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
+  <preference name="ShowSplashScreenSpinner" value="true" />  
   <preference name="windows-target-version" value="10.0"/>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>

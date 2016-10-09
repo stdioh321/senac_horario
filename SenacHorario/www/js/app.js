@@ -10,6 +10,13 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
+      // alert("Platform Ready");
+      var splash = document.getElementById("custom-overlay");
+      setTimeout(function(){
+          splash.style.display = "none";
+      }, 5000);
+
+
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       // if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
