@@ -4,6 +4,7 @@
     position: absolute !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
+    -webkit-transform: translateY(-50%) !important;
 }
 
 #custom-overlay {
@@ -17,7 +18,7 @@
     opacity: 1;
     transition: 1s all linear;
     /*border: solid red 4px;*/
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -28,7 +29,7 @@
 	width: 80%;
 	display: block;*/
     /*border: solid red 4px;*/
-    width: 100%;
+    max-width: 80%;
     flex: 1;
     /*width: 80%;
     height: 80%;
@@ -37,6 +38,7 @@
     margin-right: -50%;
     transform: translate(-50%, -50%);
     left: 50%;*/
+    
 }
 
 #custom-overlay.splash-out {
@@ -45,6 +47,7 @@
     opacity: 0;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
     visibility: hidden;
+
 }
 #custom-overlay.splash-in {
     
@@ -52,4 +55,5 @@
 #custom-overlay.splash-in-tmp img{
     -webkit-transform: scale(.0, .0)!important;
     transform: scale(.0, .0)!important;
+
 }
