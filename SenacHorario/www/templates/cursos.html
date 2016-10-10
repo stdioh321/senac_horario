@@ -23,29 +23,29 @@
   </ion-header-bar>
   <ion-content class="padding">
 
-
-    <label class="item item-select item-input">
-        <div class="input-label">
+ 
+    <label class="item item-select item-select-row" data-tap-disabled="true">
+        <!-- <div class="input-label">
           Curso
-        </div>
-        <select class="input input-select" ng-options="item.nome for item in cursos.cursos" ng-model="selCurso" ng-change="carregaHorarios(selCurso)">
+        </div> -->
+        <select class="input input-select"  ng-options="item.nome for item in cursos.cursos" ng-model="selCurso" ng-change="carregaHorarios(selCurso)">
       <option value="">Selecione o Curso</option>
     </select>
       </label>
 
 
-    <label class="item item-select item-input">
-      <div class="input-label">
+    <label class="item item-select item-select-row" data-tap-disabled="true" ng-show="selCurso">
+      <!-- <div class="input-label">
           Período
-        </div>
+        </div> -->
         <select ng-options="item.Semestre for item in semestres" ng-model="selSem" ng-change="mudaDia(selSem)">
-      <option value="">Escolha seu Período...</option>
+      <option value="">Escolha seu Período</option>
     </select>
       </label>
 
     <br/>
     <div class="card" ng-if="userData.dias">
-      <h4 class="item item-divider">
+      <h4 class="item item-divider item-text-wrap ">
         
         {{userData.curso.nome}}</h4>
       <h4 class="item">
@@ -53,7 +53,7 @@
         {{userData.semestre.Semestre}}</h4>
     </div>
 
-    <div class="card" ng-repeat="item in userData.dias">
+    <div class="card " ng-repeat="item in userData.dias">
       <div class="item item-divider">{{item.name}}</div>
       <div class="item item-avatar item-avatar-left-middle item-text-wrap" ng-repeat="item2 in item.horarios">
 
