@@ -1,6 +1,5 @@
 <ion-view view-title="Cursos">
-
-  <!--<ion-header-bar  class="bar-positive">
+    <!--<ion-header-bar  class="bar-positive">
     <div class="buttons">
       <button class="button" ng-click="doSomething()">Left Button</button>
     </div>
@@ -9,74 +8,62 @@
       <button class="ion-navicon-round">Right Button</button>
     </div>
   </ion-header-bar>-->
-  <ion-header-bar align-title="center" class="bar-positive">
-    <div class="buttons">
-      <!--<button class="button" ng-click="doSomething()">Left Button</button>-->
-    </div>
-    
-    <h1 class="title">Horários</h1>
-    <div class="buttons">
-      <button class="button button-icon icon ion-refresh" ng-click="carregaCurso()" ng-if="userData.flagCursos"></button>
-      <button class="button button-icon icon ion-email" ng-click="openModal()" ng-if="userData.flagMessage"></button>
-      <button class="button button-icon icon ion-more" ng-click="openPopover($event)"></button>
-    </div>
-  </ion-header-bar>
-  <ion-content class="padding">
-
- 
-    <label class="item item-select item-select-row" data-tap-disabled="true">
-        <!-- <div class="input-label">
-          Curso
-        </div> -->
-        <select class="input input-select"  ng-options="item.nome for item in cursos.cursos" ng-model="selCurso" ng-change="carregaHorarios(selCurso)">
-      <option value="">Selecione o Curso</option>
-    </select>
-      </label>
-
-
-    <label class="item item-select item-select-row" data-tap-disabled="true" ng-show="selCurso">
-      <!-- <div class="input-label">
-          Período
-        </div> -->
-        <select ng-options="item.Semestre for item in semestres" ng-model="selSem" ng-change="mudaDia(selSem)">
-      <option value="">Escolha seu Período</option>
-    </select>
-      </label>
-
-    <br/>
-    <div class="card" ng-if="userData.dias">
-      <h4 class="item item-divider item-text-wrap ">
+    <ion-header-bar align-title="center" class="bar-positive">
+        <div class="buttons">
+            <!--<button class="button" ng-click="doSomething()">Left Button</button>-->
+        </div>
+        <h1 class="title">Horários</h1>
+        <div class="buttons">
+            <button class="button button-icon icon ion-refresh" ng-click="carregaCurso()" ng-if="userData.flagCursos"></button>
+            <button class="button button-icon icon ion-email" ng-click="openModal()" ng-if="userData.flagMessage"></button>
+            <button class="button button-icon icon ion-more" ng-click="openPopover($event)"></button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <label class="item item-select item-select-row" data-tap-disabled="true">
+            <div class="input-label">
+                <!-- Curso -->
+            </div>
+            <select class="input input-select" ng-options="item.nome for item in cursos.cursos" ng-model="selCurso" ng-change="carregaHorarios(selCurso)">
+                <option value="">Selecione o Curso</option>
+            </select>
+        </label>
+        <label class="item item-select item-select-row" data-tap-disabled="true" ng-show="selCurso">
+            <div class="input-label">
+                <!-- Período -->
+            </div>
+            <select ng-options="item.Semestre for item in semestres" ng-model="selSem" ng-change="mudaDia(selSem)">
+                <option value="">Escolha seu Período</option>
+            </select>
+        </label>
+        <br/>
+        <div class="card" ng-if="userData.dias">
+            <h4 class="item item-divider item-text-wrap ">
         
         {{userData.curso.nome}}</h4>
-      <h4 class="item">
+            <h4 class="item">
         
         {{userData.semestre.Semestre}}</h4>
-    </div>
-
-    <div class="card " ng-repeat="item in userData.dias">
-      <div class="item item-divider">{{item.name}}</div>
-      <div class="item item-avatar item-avatar-left-middle item-text-wrap" ng-repeat="item2 in item.horarios">
-
-
-        <img ng-src="{{item2.infoProfessor.photo}}" alt="{{item2.Professor}}" />
-        <!--<img ng-src="img/user-default.png" alt="{{item2.Professor}}" ng-if="!item2.infoProfessor"/>-->
-        <h3>{{item2.Disciplina}}</h3>
-        <p>{{item2.faixaHoraria | alterFaixaHoraria}} - Sala: {{item2.infoSala.nome}}
-        <br/>
-        Tipo: {{item2.infoSala.tipo}}
-        <br/>
-        Local: {{item2.infoSala.localizacao}}
-        </p>
-        <h4>
+        </div>
+        <div class="card " ng-repeat="item in userData.dias">
+            <div class="item item-divider">{{item.name}}</div>
+            <div class="item item-avatar item-avatar-left-middle item-text-wrap" ng-repeat="item2 in item.horarios">
+                <img ng-src="{{item2.infoProfessor.photo}}" alt="{{item2.Professor}}" />
+                <!--<img ng-src="img/user-default.png" alt="{{item2.Professor}}" ng-if="!item2.infoProfessor"/>-->
+                <h3>{{item2.Disciplina}}</h3>
+                <p>{{item2.faixaHoraria | alterFaixaHoraria}} - Sala: {{item2.infoSala.nome}}
+                    <br/> Tipo: {{item2.infoSala.tipo}}
+                    <br/> Local: {{item2.infoSala.localizacao}}
+                </p>
+                <h4>
           <a class="" ng-click="openInBrowser(item2.infoProfessor.lattes)">
           {{item2.Professor}}
           </a>
         </h4>
-
-      </div>
-      <div class="item" ng-if="item.horarios.length < 1">
-        <p>Näo exitem registros para este dia</p>
-      </div>
-    </div>
-  </ion-content>
+            </div>
+            <div class="item" ng-if="item.horarios.length < 1">
+                <p>Näo exitem registros para este dia</p>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>
