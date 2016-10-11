@@ -85,7 +85,7 @@ angular.module('starter.controllers', [])
     $scope.showAlert = function() {
         var alertPopup = $ionicPopup.alert({
             title: 'Sobre',
-            template: '<div class="list"> <div class="item"> <h3>Desenvolvedor</h3> <h2>Henrique Lino Dias</h5> <p>diaslino.h@gmail.com</p> <h4>Polygon-Games</h4> </div> </div>'
+            templateUrl: 'templates/about.html'
         });
     };
     $scope.showAlert2 = function() {
