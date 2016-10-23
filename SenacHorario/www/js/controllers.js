@@ -171,6 +171,7 @@ angular.module('starter.controllers', [])
         $scope.horarios = [];
         $scope.semestres = [];
         $scope.userData = {};
+        // console.log(curso);
 
         $scope.diasSemana.forEach(function(el2) {
             el2.horarios = [];
@@ -179,6 +180,8 @@ angular.module('starter.controllers', [])
 
 
         $scope.userData.curso = curso;
+        $scope.userData.notificationInf = config.notificationInf;
+        $scope.userData.notificationInf.cursoId = curso.id;
 
         $ionicLoading.show({
             template: 'Carregando Horarios...'
@@ -201,11 +204,11 @@ angular.module('starter.controllers', [])
                 }
 
                 el.infoSala = {
-                     'Nome': el.sala
+                    'Nome': el.sala
                 };
                 $scope.salas.some(function(elSala) {
                     // console.log('sala', elSala);
-                    if(el.sala == elSala.id ) {
+                    if (el.sala == elSala.id) {
                         el.infoSala = elSala;
                         return true;
                     }
@@ -223,11 +226,13 @@ angular.module('starter.controllers', [])
 
     $scope.mudaDia = function(item) {
         $scope.flagDiasSemana = false;
-
         $scope.diasSemana.forEach(function(el2) {
             el2.horarios = [];
         });
         if (!item) return;
+        // console.log(item);
+
+        // console.log($scope.userData);
         $scope.horarios.forEach(function(el1) {
 
             $scope.diasSemana.forEach(function(el2) {
@@ -277,6 +282,9 @@ angular.module('starter.controllers', [])
 
             });
         });
+        $scope.userData.notificationInf.turmaId = item.Turma;
+        // window.plugins.OneSignal.deleteTags(["jao", "jao2", "key"]);
+        window.plugins.OneSignal.sendTags($scope.userData.notificationInf);
         $scope.userData.semestre = item;
         $scope.userData.flagMessage = true;
         $scope.userData.dias = $scope.diasSemana;
@@ -301,7 +309,7 @@ angular.module('starter.controllers', [])
             if (this.readyState == 4 && this.status == 200) {
                 var blob = URL.createObjectURL(this.response);
                 var reader = new FileReader();
-                
+
                 reader.readAsDataURL(this.response);
 
                 reader.onloadend = function() {
