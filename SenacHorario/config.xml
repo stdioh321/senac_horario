@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="br.polygon4games.senac.cademinhasala" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Cadê minha Sala</name>
+    <name>Cade minha Sala</name>
     <description>
         Aplicativo para os alunos do Centro Universitário Senac - Campi Santo Amaro. Agora é possível conferir sua grade de horária, local da sala e currículo do professor na palma da mão! Além disso, avisos importantes da coordenação serão enviados ao aplicativo como uma notificação.
     </description>

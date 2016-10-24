@@ -32,7 +32,7 @@
             <div class="input-label">
                 <!-- Período -->
             </div>
-            <select ng-options="item.Semestre for item in semestres" ng-model="selSem" ng-change="mudaDia(selSem)">
+            <select ng-options="item.Semestre + ' (' + item.Turma + ')' for item in semestres" ng-model="selSem" ng-change="mudaDia(selSem)">
                 <option value="">Escolha seu Período</option>
             </select>
         </label>
@@ -43,7 +43,7 @@
         {{userData.curso.nome}}</h4>
             <h4 class="item">
         
-        {{userData.semestre.Semestre}}</h4>
+        {{userData.semestre.Semestre}} ({{userData.semestre.Turma}})</h4>
         </div>
         <div class="card " ng-repeat="item in userData.dias">
             <div class="item item-divider">{{item.name}}</div>
