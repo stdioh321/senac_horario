@@ -1,0 +1,23 @@
+{
+  "name": "cademinhasala-notificacoes",
+  "homepage": "https://github.com/stdioh321/senac_horario",
+  "authors": [
+    "hdias <diaslinoh@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "toastr": "^2.1.3"
+  }
+}

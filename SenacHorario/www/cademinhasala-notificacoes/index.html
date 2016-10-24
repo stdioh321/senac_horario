@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cade minha Sala - Notificações</title>
+    <script src="json/config.js"></script>
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="www/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="www/lib/toastr/toastr.css">
+    <!-- Libs JS-->
+    <script src="www/lib/jquery/dist/jquery.js"></script>
+    <script src="www/lib/toastr/toastr.js"></script>
+    <script src="www/lib/angular/angular.js"></script>
+    <!-- Dependecies -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+</head>
+
+<body ng-controller="appCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <form name="myForm">
+                    <legend>Cade Minha Sala - Notificaçōes</legend>
+                    <div class="form-group">
+                        <label for="">Titulo</label>
+                        <input type="text" class="form-control" placeholder="Titulo" name="titulo" ng-model="send.titulo" ng-required="true">
+                    </div>
+                    <div class="alert alert-danger" ng-show="myForm.titulo.$dirty && myForm.titulo.$error.required">
+                        Digite um titulo
+                    </div>
+                    <div class="form-group">
+                        <label for="">Mensagem</label>
+                        <textarea class="form-control" placeholder="Mensagem" name="mensagem" ng-model="send.mensagem" ng-required="true"></textarea>
+                    </div>
+                    <div class="alert alert-danger" ng-show="myForm.mensagem.$dirty && myForm.mensagem.$error.required">
+                        Digite uma mensagem
+                    </div>
+                    <div class="form-group">
+                        <label for="">Curso</label>
+                        <select ng-model="send.cursoId" ng-options="item.id as item.nome for item in cursos" class="form-control" ng-change="trocaCurso()">
+                            <option value="">--- Todos ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group" ng-show="send.cursoId">
+                        <label for="">Turma</label>
+                        <select ng-model="send.turmaId" ng-options="item.Turma as item.Turma + '(' + item.Semestre + ')' for item in turmas" class="form-control">
+                            <option value="">--- Todas ---</option>
+                        </select>
+                    </div>
+                    <div class="alert alert-success" ng-show="flags.flagSuccesso">
+                        <p>Sucesso no Envio da Notificação</p>
+                    </div>
+                    <div class="alert alert-danger" ng-show="flags.flagFalha">
+                        Falha no Envio da Notificação, tente novamente.
+                    </div>
+                    <button class="btn btn-primary btn-block" ng-disabled="myForm.$invalid" ng-click="sendNotification(send)">Enviar</button>
+                    <hr />
+                    <div class="alert alert-warning" ng-show="myForm">
+                        {{send}}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+</body>
+
+</html>
