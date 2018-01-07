@@ -1,5 +1,40 @@
 #!/bin/sh
 
+checkRequiredVariables(){
+	exit_code=0
+	if [ -z "${ANDROID_HOME}" ]; then
+	    echo "ANDROID_HOME is unset or set to the empty string" 
+	    exit_code=1
+	fi
+	if [ -z "${GRADLE_HOME}" ]; then
+	    echo "GRADLE_HOME is unset or set to the empty string"
+	    exit_code=2
+	fi
+	which zipalign >/dev/null
+	if [ "$?" != "0" ]; then
+	    echo "zipalign is not in you PATH. Try to add ANDROID_HOME/build-tools/26.0.2 on PATH"
+	    exit_code=3
+	fi
+	which gradle >/dev/null
+	if [ "$?" != "0" ]; then
+	    echo "gradle is not in you PATH. Try to add GRADLE_HOME/bin on PATH"
+	    exit_code=4
+	fi
+	which cordova >/dev/null
+	if [ "$?" != "0" ]; then
+	    echo "cordova is not in you PATH. Try to install with sudo npm install -g cordova"
+	    exit_code=5
+	fi
+	which npm >/dev/null
+	if [ "$?" != "0" ]; then
+	    echo "npm is not in you PATH. Try to install with sudo apt install npm"
+	    exit_code=6
+	fi
+	return $exit_code
+}
+
+buildAndSignAPK(){
+
 # credenciais
 STORE_ALIAS=android
 STORE_PASS=password
@@ -7,8 +42,8 @@ STORE_PASS=password
 KEY_STORE=android.keystore
 KEY_PASS=$STORE_PASS
 
-APK_UNSIGNED=platforms/android/build/outputs/apk/android-release-unsigned.apk
-APK_SIGNED=platforms/android/build/outputs/apk/android-release-signed.apk
+APK_UNSIGNED=platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+APK_SIGNED=platforms/android/app/build/outputs/apk/release/app-release-signed.apk
 DNAME="CN=Polygon, OU=Application Development, O=br.polygon4games.senac.cademinhasala, L=Sao_Paulo, S=Sao_Paulo, C=BR"
 # DNAME="CN=BR"
 
@@ -73,3 +108,13 @@ echo "SIGNED FILE: $APK_SIGNED"
 
 # Hash com a assinatura
 keytool -printcert -jarfile "$APK_SIGNED"
+
+}
+
+
+checkRequiredVariables
+if [ "$?" = "0" ]; then
+	buildAndSignAPK
+else
+	echo "Some required variabled is unset"
+fi
