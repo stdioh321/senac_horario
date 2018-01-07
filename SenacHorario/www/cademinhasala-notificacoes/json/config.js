@@ -1,5 +1,5 @@
 var config = {
-    urlCors:            "https://crossorigin.me/",
+    urlCors:            "https://cors-anywhere.herokuapp.com/",
     urlCursos:          "http://sistemasparainternet.azurewebsites.net/horarios/2.0/getCursos.php",
     urlSalas:           "http://sistemasparainternet.azurewebsites.net/horarios/2.0/getSalas.php",
     urlMensagens:       "http://sistemasparainternet.azurewebsites.net/horarios/2.0/getMensagens.php",
@@ -7,6 +7,6 @@ var config = {
     paramsConsulta:     "?id=",
     notificationInf: 	{ turmaId:"", cursoId:"" },
     urlNotification: 	"https://onesignal.com/api/v1/notifications",
-    appId: 				"b2d3d26e-3c1f-42ca-be45-fb2049c859a3",
-    auth: 				"Basic NTFjYjgzNWEtMmIyNi00ODM1LWFlOGItMjkwOWFiNzIyZjA5"
+    appId: 				"f8f9070b-48cc-49d3-a7a9-259f7bd7fbef",
+    auth: 				"Basic NzAzN2ZiMDAtOWIwMy00N2E4LWI2NWQtN2JhYmVkYWE5NmYx"
 };

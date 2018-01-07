@@ -288,7 +288,7 @@ angular.module('starter.controllers', [])
         });
         $scope.userData.notificationInf.turmaId = item.Turma;
         // window.plugins.OneSignal.deleteTags(["jao", "jao2", "key"]);
-        // window.plugins.OneSignal.sendTags($scope.userData.notificationInf);
+        window.plugins.OneSignal.sendTags($scope.userData.notificationInf);
         $scope.userData.semestre = item;
         $scope.userData.flagMessage = true;
         $scope.userData.dias = $scope.diasSemana;
