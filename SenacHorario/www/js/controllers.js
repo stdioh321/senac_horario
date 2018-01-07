@@ -136,6 +136,7 @@ angular.module('starter.controllers', [])
         });
         CursosServ.getCursos().then(function(data) {
             $scope.cursos = data.data;
+            // console.log(data);
             $scope.userData.flagCursos = false;
             $ionicLoading.hide();
 
@@ -264,7 +265,10 @@ angular.module('starter.controllers', [])
                     if (tmpProfessor.length > 0) {
                         // criaBlob(tmpProfessor[0].photo, tmpProfessor[0]);
                         el2.infoProfessor = tmpProfessor[0];
+                        el2.infoProfessor.photo = "img/user-default.png";
                     } else {
+                        // console.log(tmpProfessor);
+                        // el2.infoProfessor = tmpProfessor[0];
                         el2.infoProfessor = {};
                         el2.infoProfessor.photo = "img/user-default.png";
                     }
@@ -284,7 +288,7 @@ angular.module('starter.controllers', [])
         });
         $scope.userData.notificationInf.turmaId = item.Turma;
         // window.plugins.OneSignal.deleteTags(["jao", "jao2", "key"]);
-        window.plugins.OneSignal.sendTags($scope.userData.notificationInf);
+        // window.plugins.OneSignal.sendTags($scope.userData.notificationInf);
         $scope.userData.semestre = item;
         $scope.userData.flagMessage = true;
         $scope.userData.dias = $scope.diasSemana;
@@ -301,7 +305,8 @@ angular.module('starter.controllers', [])
     function criaBlob(url, horario) {
 
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', config.urlCors + url);
+        // xhr.open('GET', config.urlCors + url);
+        xhr.open('GET', url);
         xhr.responseType = 'blob';
         xhr.send();
 

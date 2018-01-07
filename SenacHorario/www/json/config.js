@@ -1,5 +1,9 @@
+// urlCors:            "https://crossorigin.me/",
+// urlCors:            "http://cors-proxy.htmldriven.com/?url=",
+
 var config = {
-    urlCors:            "https://crossorigin.me/",
+    urlCors:            "https://cors-anywhere.herokuapp.com/",    
+    
     urlCursos:          "http://sistemasparainternet.azurewebsites.net/horarios/2.0/getCursos.php",
     urlSalas:           "http://sistemasparainternet.azurewebsites.net/horarios/2.0/getSalas.php",
     urlMensagens:       "http://sistemasparainternet.azurewebsites.net/horarios/2.0/getMensagens.php",

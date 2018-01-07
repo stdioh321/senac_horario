@@ -22,9 +22,9 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
 
         // }, 5000);
 
-        window.plugins.OneSignal
-            .startInit("b2d3d26e-3c1f-42ca-be45-fb2049c859a3", "298017792065")
-            .endInit();
+        // window.plugins.OneSignal
+        //     .startInit("b2d3d26e-3c1f-42ca-be45-fb2049c859a3", "298017792065")
+        //     .endInit();
 
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
