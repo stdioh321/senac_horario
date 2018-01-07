@@ -265,7 +265,7 @@ angular.module('starter.controllers', [])
                     if (tmpProfessor.length > 0) {
                         // criaBlob(tmpProfessor[0].photo, tmpProfessor[0]);
                         el2.infoProfessor = tmpProfessor[0];
-                        el2.infoProfessor.photo = "img/user-default.png";
+                        // el2.infoProfessor.photo = "img/user-default.png";
                     } else {
                         // console.log(tmpProfessor);
                         // el2.infoProfessor = tmpProfessor[0];
@@ -305,8 +305,8 @@ angular.module('starter.controllers', [])
     function criaBlob(url, horario) {
 
         var xhr = new XMLHttpRequest();
-        // xhr.open('GET', config.urlCors + url);
-        xhr.open('GET', url);
+        xhr.open('GET', config.urlCors + url);
+        // xhr.open('GET', url);
         xhr.responseType = 'blob';
         xhr.send();
 
