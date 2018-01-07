@@ -2,7 +2,9 @@
   "name": "SenacHorario",
   "app_id": "",
   "type": "ionic1",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "watchPatterns": [
     "scss/**/*",
     "www/**/*",

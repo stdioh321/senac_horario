@@ -48,7 +48,7 @@
         <div class="card " ng-repeat="item in userData.dias">
             <div class="item item-divider">{{item.name}}</div>
             <div class="item item-avatar item-avatar-left-middle item-text-wrap" ng-repeat="item2 in item.horarios">
-                <img ng-src="{{item2.infoProfessor.photo}}" alt="{{item2.Professor}}" />
+                <img ng-src="{{item2.infoProfessor.photo}}" alt="{{item2.Professor}}" on-error-src="img/user-default.png" />
                 <!--<img ng-src="img/user-default.png" alt="{{item2.Professor}}" ng-if="!item2.infoProfessor"/>-->
                 <h3>{{item2.Disciplina}}</h3>
                 <p>{{item2.faixaHoraria | alterFaixaHoraria}} - Sala: {{item2.infoSala.nome}}

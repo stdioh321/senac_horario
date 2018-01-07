@@ -302,6 +302,9 @@ angular.module('starter.controllers', [])
         return false;
     }
 
+    function checkImgProfessor(){
+
+    }
     function criaBlob(url, horario) {
 
         var xhr = new XMLHttpRequest();
@@ -312,9 +315,10 @@ angular.module('starter.controllers', [])
 
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                var blob = URL.createObjectURL(this.response);
+                // var blob = URL.createObjectURL(this.response);
+                // horario.infoProfessor.photo = blob;
                 var reader = new FileReader();
-
+                // console.log(blob);
                 reader.readAsDataURL(this.response);
 
                 reader.onloadend = function() {
@@ -323,6 +327,10 @@ angular.module('starter.controllers', [])
                 }
 
 
+            }
+            else if(this.readyState == 4 && this.status != 200){
+                // console.log(this);
+                horario.infoProfessor.photo = "img/user-default.png";
             }
         }
     }
