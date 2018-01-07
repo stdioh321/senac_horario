@@ -83,12 +83,16 @@ $STORE_PASS
 $STORE_PASS
 EOF
 
+
+
 # assinando apk
 jarsigner -verbose \
 -certs \
 -keystore $KEY_STORE \
 -storepass $STORE_PASS \
 -keypass $KEY_PASS \
+-sigalg SHA1withRSA \
+-digestalg SHA1 \
 $APK_UNSIGNED \
 $STORE_ALIAS
 
